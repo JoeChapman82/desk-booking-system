@@ -1,0 +1,18 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+
+{% block page_title %}Choose a room{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Main menu', '/', 'link-back') }}
+    {{ typography.mainHeading('Choose a desk')}}
+    {{ typography.paragraph('This system is only for use by people based in ' + siteLocation, 'lede')}}
+{% endblock %}
+
+{% block content %}
+    <div class="column-full">
+        {{ typography.heading(siteLocation, 2, 'heading heading-medium')}}
+        {{ tables.chooseRoom(rooms) }}
+    </div>
+{% endblock %}

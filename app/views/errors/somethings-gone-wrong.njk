@@ -1,0 +1,16 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+
+{% import "nunjucks/macros/typography.njk" as typography %}
+
+{% block page_title %}Somethings gone wrong{% endblock %}
+
+{% block pre_content %}
+    {{ typography.mainHeading ('Somethings gone terribly wrong' ) }}
+    {{ typography.paragraph('An unexpected error has occured. If it persists, please let someone know.', 'lede')}}
+    <br>
+    <a href="/" class="button">Main menu</a>
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}

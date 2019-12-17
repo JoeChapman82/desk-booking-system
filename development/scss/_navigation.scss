@@ -1,0 +1,53 @@
+.previous-next-navigation {
+    list-style-type: none;
+    font-size: 1.5em;
+    margin-bottom: 2rem;
+}
+
+.previous-next-navigation a {
+    text-decoration: none;
+    outline: none;
+    color: #005ea5;
+}
+
+.date-nav-svg-right {
+    width: 2.2em;
+    height: 2.2em;
+    margin-left: -.5em;
+    vertical-align: middle;
+}
+
+.date-nav-svg-left {
+    width: 2.2em;
+    height: 2.2em;
+    margin-right: -.5em;
+    vertical-align: middle;
+}
+
+.previous {
+    float: left;
+    margin-left: -2rem;
+    position: relative;
+}
+
+.next {
+    position: relative;
+    float: right;
+    margin-right: -2rem;
+}
+
+.next-day-day {
+  position: absolute;
+  bottom: 0;
+  right: 2.8em;
+  line-height: .8;
+  font-size: 70%;
+}
+
+.previous-day-day {
+  position: absolute;
+  bottom: 0;
+  left: 2.8em;
+  line-height: .8;
+  font-size: 70%;
+}

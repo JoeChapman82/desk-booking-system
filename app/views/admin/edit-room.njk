@@ -1,0 +1,26 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+{% block page_title %}Edit Room{% endblock %}
+
+{% block pre_content %}
+{{ typography.link ('Back home', '/admin/home', 'link-back') }}
+{% if roomEdited %}
+    {{ messages.successMessage('Room updated', 'The new details you have provided have been saved.') }}
+{% endif %}
+    {{ typography.mainHeading ('Edit room') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-two-thirds">
+        {{ typography.paragraph('Select a room from the box below to edit the rooms details.', 'lede additional-margin-heading') }}
+        {{ forms.selectInput('roomSelect', 'Select a room', rooms, errors.roomSelect, erroredRoom, false, false, false, true) }}
+        {% for room in rooms %}
+        {{ forms.roomForm('/admin/edit-room', _csrf, errors, room, true, erroredRoom) }}
+        {% endfor %}
+    </div>
+
+{% endblock %}

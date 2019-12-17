@@ -1,0 +1,236 @@
+{% macro textInput(id, label, value, error, related, hintText, readonly) %}
+<div class="form-group{% if related %}-related{% endif %}{% if error %} form-group-error{% endif %}">
+    <label class="form-label block-label" for="{{ id }}">{{ label }}
+        {% if hintText %}
+            <span class="form-hint">
+                {{ hintText }}
+            </span>
+        {% endif %}
+        {% if error %}
+            <span class="error-message">{{ error.msg }}</span>
+        {% endif %}
+        <input id="{{ id }}" class="form-control form-control-full {% if error %}form-control-error{% endif %} block-input" type="text" name="{{ id }}" value="{{ value }}" {% if readonly %}readonly{% endif %}>
+    </label>
+</div>
+{% endmacro %}
+
+{% macro textInputSmall(id, label, value, error, related, hintText, readonly, size) %}
+<div class="form-group{% if related %}-related{% endif %}{% if error %} form-group-error{% endif %}">
+    <label class="form-label-bold block-label" for="{{ id }}">{{ label }}
+        {% if hintText %}
+            <span class="form-hint">
+                {{ hintText }}
+            </span>
+        {% endif %}
+        {% if error %}
+            <span class="error-message">{{ error.msg }}</span>
+        {% endif %}
+        <input id="{{ id }}" class="form-control{% if error %} form-control-error{% endif %} {% if size %} form-control-{{ size }}{% endif %} block-input" type="text" name="{{ id }}" value="{{ value }}" {% if readonly %}readonly{% endif %}>
+    </label>
+</div>
+{% endmacro %}
+
+{% macro passwordInput(id, label, value, error, related, hintText, readonly, size) %}
+<div class="{% if ieHidden %}ie-hidden {% endif %}form-group{% if related %}-related{% endif %}{% if error %} form-group-error{% endif %}">
+    <label class="form-label-bold block-label" for="{{ id }}">{{ label }}
+        {% if hintText %}
+            <span class="form-hint">
+                {{ hintText }}
+            </span>
+        {% endif %}
+        {% if error %}
+            <span class="error-message">{{ error.msg }}</span>
+        {% endif %}
+        <input id="{{ id }}" class="{% if ieHidden %}ie-hidden {% endif %}form-control{% if size %} form-control-{{ size }}{% endif %}{% if error %} form-control-error{% endif %} block-input" type="password" name="{{ id }}" value="{{ value }}" {% if readonly %}readonly{% endif %}>
+    </label>
+</div>
+{% endmacro %}
+
+{% macro fileInput(id, label, value, error, related, hintText) %}
+<div class="form-group{% if related %}-related{% endif %} {% if error %}form-group-error{% endif %}">
+    <label class="form-label-bold block-label" for="{{ id }}">
+        {{ label }}
+    </label>
+    {% if hintText %}
+        <span class="form-hint">
+            {{ hintText }}
+        </span>
+    {% endif %}
+    {% if error %}
+        <span class="error-message">{{ error.msg }}</span>
+    {% endif %}
+    <input id="{{ id }}" name="{{ id }}" type="file">
+</div>
+{% endmacro %}
+
+{% macro selectInput(id, label, values, error, selectedOption, related, hintText, size, hasTarget) %}
+<div class="form-group{% if related %}-related{% endif %} {% if error %}form-group-error{% endif %}">
+<label class="form-label-bold" for="{{ id }}">{{ label }}</label>
+{% if hintText %}
+    <span class="form-hint">
+        {{ hintText }}
+    </span>
+{% endif %}
+{% if error %}
+    <span class="error-message">{{ error.msg }}</span>
+{% endif %}
+<select id="{{ id }}" class="form-control {% if error %} form-control-error{% endif %} {% if size %}form-control-{{ size }}{% endif %}" name="{{ id }}" {% if readonly %}disabled{% endif %}>
+    <option value="" disabled selected>Select an option</option>
+    {% for item in values %}
+        {% if item.value %}
+        <option value="{{ item.value }}" {% if item.value == selectedOption %} selected{% endif %} {% if item.target %} data-target="{{ item.target }}"{% endif %}>{{ item.label }}</option>
+        {% elif item._id %}
+            <option value="{{ item._id }}" {% if item._id == selectedOption %} selected{% endif %}{% if hasTarget %} data-target="{{ item._id }}"{% endif %}>{{ item.name }}</option>
+        {% endif %}
+    {% endfor %}
+</select>
+</div>
+{% endmacro %}
+
+{% macro submitInput(value, type, name) %}
+<input {% if name %}id="{{ name }}" name="{{ name }}"{% endif %}class="button {% if type %}{{ type }}{% endif %}" type="submit" name="submit" value="{{ value }}">
+{% endmacro %}
+
+{% macro hiddenInput(id, value) %}
+    <input id="{{ id }}" name="{{ id }}" type="hidden" name="submit" value="{{ value }}">
+{% endmacro %}
+
+{% macro roomForm(postUrl, _csrf, errors, room, isHidden, visible) %}
+    <form class="{% if isHidden and visible != room._id %}js-hidden{% endif %}" action="{{ postUrl }}" method="post" id="{{ room._id }}">
+        {{ textInputSmall('name', 'Desk name', room.name, errors.name, true) }}
+        {{ textInputSmall('equipment', 'Floor', room.equipment[0], errors.equipment, true) }}
+        {{ textInputSmall('sitting', 'Desk feature 1', room.sitting, errors.sitting, true) }}
+        {{ textInputSmall('standing', 'Desk feature 2', room.standing, errors.standing, true) }}
+        {{ hiddenInput('id', room._id) }}
+        {{ hiddenInput('_csrf', _csrf) }}
+        {{ submitInput('Submit') }}
+    </form>
+{% endmacro %}
+
+{% macro bookingForm(postUrl, href, _csrf, errors, booking, room) %}
+    <form action="{{ postUrl }}/{{ booking._id }}" method="post">
+        {{ textInput('name', 'Name', booking.name, errors.name, true) }}
+        {{ textInput('description', 'Description', booking.description, errors.description, true) }}
+        {{ textInputSmall('room', 'Room', room.name, errors.room, true) }}
+        {{ textInputSmall('date', 'Date', booking.start | asDateString, errors.date, true) }}
+        {{ textInputSmall('startTime', 'Start time', booking.start | hoursAndMinutes, errors.startTime, true) }}
+        {{ textInputSmall('endTime', 'End time', booking.end | hoursAndMinutes, errors.endTime, true) }}
+        {{ hiddenInput('id', booking._id) }}
+        {{ hiddenInput('_csrf', _csrf) }}
+        {{ submitInput('Update Booking') }}
+        <a href="{{ href }}/{{ booking._id }}" class="button">Delete Booking</a>
+    </form>
+{% endmacro %}
+
+
+{% macro searchBox(id, label, _csrf, value, error, hintText, submitValue, postUrl) %}
+    <div class="column-half">
+        <form action="{{ postUrl }}" method="post">
+            <div class="search-box-wrapper">
+                <div class="form-group{% if error %} form-group-error{% endif %}">
+                    <label class="form-label-bold block-label" for="{{ id }}">{{ label }}
+                        {% if hintText %}
+                            <span class="form-hint">{{ hintText }}</span>
+                        {% endif %}
+                        {% if error %}
+                            <span class="error-message">{{ error.msg }}</span>
+                        {% endif %}
+                        <div class="search-box-input-wrapper">
+                            <input id="{{ id }}" class="form-control form-control-full search-box-input {% if error %}form-control-error{% endif %} block-input" type="text" name="{{ id }}" value="{{ value }}">
+                            <button class="search-box-svg-button" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </button>
+                        </div>
+
+                    </label>
+                </div>
+                {{ hiddenInput('_csrf', _csrf) }}
+                <input class="button search-submit" type="submit" name="submit" value="{{ submitValue }}">
+            </div>
+        </form>
+    </div>
+{% endmacro %}
+
+{% macro mobileDp(today, postUrl, _csrf) %}
+<form id="mobileDatePicker" class="mobile-dp" action="{{ postUrl }}" method="post">
+    <div class="dp-wrapper">
+        <div class="form-group">
+          <fieldset class="dp-fieldset">
+            <legend class="visually-hidden">Date</legend>
+            <div class="form-date">
+              <div class="form-group form-group-day reduced-margin-form-group">
+                <label class="form-label-bold" for="dateDay">Day</label>
+                <input class="form-control mobile-dp-input" id="dateDayMobile" data-original="{{ today.dateDay }}" name="dateDay" type="number" pattern="[0-9]*" min="0" max="31" value="{{ today.dateDay }}">
+              </div>
+              <div class="form-group form-group-month reduced-margin-form-group">
+                <label class="form-label-bold" for="dateMonth">Month</label>
+                <input class="form-control mobile-dp-input" id="dateMonthMobile" data-original="{{ today.dateMonth }}" name="dateMonth" type="number" pattern="[0-9]*" min="0" max="12" value="{{ today.dateMonth }}">
+              </div>
+              <div class="form-group form-group-year reduced-margin-form-group">
+                <label class="form-label-bold" for="dateYear">Year</label>
+                <input class="form-control mobile-dp-input" id="dateYearMobile" data-original="{{ today.dateYear }}" name="dateYear" type="number" pattern="[0-9]*" min="0" max="2050" value="{{ today.dateYear }}">
+              </div>
+            </div>
+            {{ hiddenInput('_csrf', _csrf) }}
+            <input id="changeDateMobile" type="submit" class="button dp-submit" name="" value="Go">
+          </fieldset>
+        </div>
+    </div>
+</form>
+{% endmacro %}
+
+{% macro dp(today, errors) %}
+    <div class="form-group {% if errors.date %}form-group-error{% endif %} ">
+      <fieldset class="dp-fieldset">
+        <legend>
+            {% if errors.dateDay.msg %}
+            <span class="error-message">{{ errors.dateDay.msg }}</span>
+            {% elif errors.dateMonth.msg %}
+            <span class="error-message">{{ errors.dateMonth.msg }}</span>
+            {% elif errors.dateYear.msg %}
+            <span class="error-message">{{ errors.dateYear.msg }}</span>
+            {% endif %}
+        </legend>
+        <div class="form-date">
+          <div class="form-group form-group-day reduced-margin-form-group">
+            <label class="form-label-bold" for="dateDay">Day</label>
+            <input class="form-control {% if errors.dateDay %}form-control-error{% endif %}" id="dateDay" data-original="{{ today.dateDay }}" name="dateDay" type="number" pattern="[0-9]*" min="0" max="31" value="{{ today.dateDay }}">
+          </div>
+          <div class="form-group form-group-month reduced-margin-form-group">
+            <label class="form-label-bold" for="dateMonth">Month</label>
+            <input class="form-control {% if errors.dateMonth %}form-control-error{% endif %}" id="dateMonth" data-original="{{ today.dateMonth }}" name="dateMonth" type="number" pattern="[0-9]*" min="0" max="12" value="{{ today.dateMonth }}">
+          </div>
+          <div class="form-group form-group-year reduced-margin-form-group">
+            <label class="form-label-bold" for="dateYear">Year</label>
+            <input class="form-control {% if errors.dateYear %}form-control-error{% endif %}" id="dateYear" data-original="{{ today.dateYear }}" name="dateYear" type="number" pattern="[0-9]*" min="0" max="2050" value="{{ today.dateYear }}">
+          </div>
+        </div>
+      </fieldset>
+    </div>
+{% endmacro %}
+
+{% macro dpForm(today, postUrl, _csrf) %}
+<form action="{{ postUrl }}" method="post">
+        <div class="form-group">
+          <fieldset class="dp-fieldset">
+            <legend class="form-label-bold">Date</legend>
+            <div class="form-date">
+              <div class="form-group form-group-day reduced-margin-form-group">
+                <label class="form-label-bold" for="dateDay">Day</label>
+                <input class="form-control dp-input" id="dateDay" data-original="{{ today.dateDay }}" name="dateDay" type="number" pattern="[0-9]*" min="0" max="31" value="{{ today.dateDay }}">
+              </div>
+              <div class="form-group form-group-month reduced-margin-form-group">
+                <label class="form-label-bold" for="dateMonth">Month</label>
+                <input class="form-control dp-input" id="dateMonth" data-original="{{ today.dateMonth }}" name="dateMonth" type="number" pattern="[0-9]*" min="0" max="12" value="{{ today.dateMonth }}">
+              </div>
+              <div class="form-group form-group-year reduced-margin-form-group">
+                <label class="form-label-bold" for="dateYear">Year</label>
+                <input class="form-control dp-input" id="dateYear" data-original="{{ today.dateYear }}" name="dateYear" type="number" pattern="[0-9]*" min="0" max="2050" value="{{ today.dateYear }}">
+              </div>
+            </div>
+            {{ hiddenInput('_csrf', _csrf) }}
+            <input id="changeDate" type="submit" class="button dp-form-submit" name="" value="Go">
+          </fieldset>
+        </div>
+</form>
+{% endmacro %}

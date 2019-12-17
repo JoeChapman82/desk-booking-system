@@ -1,0 +1,18 @@
+<div class="calendar">
+    <ol class="times" aria-hidden="true">
+        {% for i in range(8, 19) %}
+            <li class="time" data-time="{{ i }}:00">{{ i }}:00</li>
+            <li class="time half-hour" data-time="{{ i }}:30"></li>
+        {% endfor %}
+    </ol>
+    <dl class="bookings">
+        {% for booking in bookings %}
+            <dt class="visually-hidden">start end</dt>
+            <dd style="height: {{ booking.start | calculateHeight(booking.end) }}; top: {{ booking.start | positionFromTop }}" class="booking">{{ booking.description }}: {{ booking.name }}</dd>
+        {% endfor %}
+    </dl>
+    {% if now %}
+    <p class="now" style="top: {{ now | positionFromTop }};"><span>{{ now | hoursAndMinutes }}</span></p>
+    {% endif %}
+
+</div>

@@ -1,0 +1,28 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+{% import "nunjucks/macros/navigation.njk" as navigation %}
+
+{% block page_title %}Free parking{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Main menu', '/', 'link-back') }}
+    {{ typography.mainHeading('Free parking') }}
+    {{ typography.paragraph('Find available parking spots for your car parking pleasure. You must already own a basement pass in order to take places in the basement.', 'lede additional-margin-heading')}}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-two-thirds">
+        {{ forms.dpForm(today, '/parking-take', _csrf)}}
+        {{ navigation.previousNextDates('/parking-take', previousDay, nextDay, _csrf) }}
+        {% if parkings.length === 0 %}
+            <p class="strong">No available spaces today</p>
+        {% else %}
+        {{ tables.availableParking(parkings, '/parking-take') }}
+        {% endif %}
+    </div>
+
+{% endblock %}

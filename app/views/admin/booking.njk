@@ -1,0 +1,24 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Booking details{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Back home', '/admin/home', 'link-back') }}
+    {% if bookingEdited %}
+        {{ messages.successMessage('Booking updated', 'The booking has been updated with the details you provided')}}
+    {% endif %}
+    {{ typography.mainHeading ('Booking details') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-two-thirds">
+        {{ forms.bookingForm('/admin/booking', '/admin/cancel-booking', _csrf, errors, booking, room) }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+{% import "nunjucks/macros/navigation.njk" as navigation %}
+
+{% block page_title %}Visitor parking{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Main menu', '/', 'link-back') }}
+    {{ typography.mainHeading('Visitor parking') }}
+    {{ typography.paragraph('Book a visitor a parking space. You still need to book the visitor on site by the normal channels.', 'lede additional-margin-heading')}}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-two-thirds">
+        {{ forms.dpForm(today, '/parking-visitor', _csrf)}}
+        {{ navigation.previousNextDates('/parking-visitor', previousDay, nextDay, _csrf) }}
+        {{ tables.availableVisitorParking(visitorParkings, '/parking-visitor', today) }}
+    </div>
+
+{% endblock %}

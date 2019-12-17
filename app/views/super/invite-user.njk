@@ -1,0 +1,29 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Invite user{% endblock %}
+
+{% block pre_content %}
+{{ typography.link ('Back home', '/super/home', 'link-back') }}
+{% if invited %}
+    {{ messages.successMessage('Invitation issued', 'The invitiation has been issued', 'If you need to invite more users, simply complete the form again.') }}
+{% endif %}
+    {{ typography.mainHeading ('Invite user') }}
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="column-two-thirds">
+        {{ typography.paragraph('Invite a user to become an administrator of the '+ siteLocation +' booking system. Enter their email address below.', 'lede additional-margin-heading') }}
+        <form class="" action="/super/invite-user" method="post">
+            {{ forms.textInputSmall('email', 'Email', '', errors.email, true) }}
+            {{ forms.hiddenInput('_csrf', _csrf) }}
+            {{ forms.submitInput('Invite') }}
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+
+{% block page_title %}Search results{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Back home', '/admin/home', 'link-back') }}
+    {{ typography.mainHeading ('Search results') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-full">
+        {{ tables.searchResults(results, '/admin/booking') }}
+    </div>
+
+{% endblock %}

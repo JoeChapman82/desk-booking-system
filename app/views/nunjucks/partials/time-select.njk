@@ -1,0 +1,32 @@
+{% for item in ['From', 'Until'] %}
+    <div class="form-group form-group-related">
+        <fieldset>
+            <legend>
+                <span class="form-label">{{ item }}</span>
+            </legend>
+            {% if errors.FromHours or errors.UntilHours or errors.FromMinutes or errors.UntilMinutes %}
+            <span class="error-message">{{ errors.UntilMinutes.msg }}</span>
+            {% endif %}
+            <label class="visually-hidden" for="hours">Hours</label>
+            <select id="hours" class="form-control time-control {% if (item === 'From' and errors.FromHours) or (item === 'Until' and errors.UntilHours) %}form-control-error{% endif %}" name="{{ item }}Hours">
+                {% for i in range(8, 20) %}
+                <option value="{% if i < 10 %}0{% endif %}{{ i }}"
+                {% if requiredTimes %}
+                {% if (item === 'From' and i == requiredTimes.fromHours) or (item === 'Until' and i == requiredTimes.untilHours) %}selected{% endif %}
+                {% endif %}
+                >{% if i < 10 %}0{% endif %}{{ i }}</option>
+                {% endfor %}
+            </select>
+            <label class="visually-hidden" for="minutes">Minutes</label>
+            <select id="minutes" class="form-control time-control {% if (item === 'From' and errors.FromMinutes) or (item === 'Until' and errors.UntilMinutes) %}form-control-error{% endif %}" name="{{ item }}Minutes">
+                {% for i in ['00', '15', '30', '45'] %}
+                <option value="{{ i }}"
+                {% if requiredTimes %}
+                {% if (item === 'From' and i == requiredTimes.fromMinutes) or (item === 'Until' and i == requiredTimes.untilMinutes) %}selected{% endif %}
+                {% endif %}
+                >{{ i }}</option>
+                {% endfor %}
+            </select>
+        </fieldset>
+    </div>
+{% endfor %}

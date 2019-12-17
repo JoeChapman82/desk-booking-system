@@ -1,0 +1,171 @@
+.column-third {
+    padding-left: 3rem;
+}
+
+.form-control-full {
+    width: 100%;
+}
+
+.room-details {
+    line-height: 0.3;
+}
+
+.date-picker {
+    position: relative;
+}
+
+.date-picker-submit {
+    // position: absolute;
+    bottom: 2px;
+    margin-top: 2.8rem;
+}
+
+.super-home-wrapper {
+    margin-top: 2rem;
+}
+
+.header-logout-form {
+    display: inline-block;
+}
+
+.file-upload-wrapper {
+    padding: 3rem 0;
+    border: 2px solid $black;
+    width: 50%;
+    padding-left: 2rem;
+    border-radius: 3px;
+    background-color: $grey-4;
+    box-sizing: border-box;
+}
+
+.search-box-wrapper,
+.admin-home-wrapper,
+.user-home-wrapper {
+    border: 2px solid $grey-1;
+    padding: 1.5rem 1.5rem 3rem;
+    border-radius: 5px;
+    background-color: $grey-4;
+    margin-bottom: $gutter;
+}
+
+.admin-home-options-wrapper {
+    text-align: center;
+    margin-bottom: $gutter;
+    height: auto;
+}
+
+.user-home-wrapper {
+    border-radius: 0;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.search-box-input-wrapper {
+    position: relative;
+}
+
+.search-box-input-wrapper svg {
+    height: 120%;
+    stroke: $white;
+}
+
+.desktop-dp  {
+    position: relative;
+}
+
+.mobile-dp {
+    display: none;
+}
+
+.dp-wrapper {
+    width: auto;
+    display: inline-block;
+    position: absolute;
+    height: 100px;
+    left: 48%;
+    top: -10px;
+    transform: translate(-52%, 0);
+    padding: 0;
+}
+
+.mobile-dp .dp-wrapper {
+    position: relative;
+}
+
+.grey-panel {
+    background-color: $grey-4;
+    border-right: 1px solid $grey-2;
+    border-top: 1px solid $grey-2;
+    border-bottom: 1px solid $grey-2;
+    line-height: 1;
+}
+
+.turquoise-panel {
+    background-color: $turquoise;
+    border-left: 5px solid $grey-1;
+    border-right: 1px solid $grey-2;
+    border-top: 1px solid $grey-2;
+    border-bottom: 1px solid $grey-2;
+    line-height: 1;
+    color: $white;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.training-session-selector-wrapper {
+    border: 1px solid #000;
+    border-radius: 3px;
+    background-color: rgba(222, 222, 222, 0.8);
+    width: 50%;
+    margin-bottom: 1rem;
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+    box-shadow: 2px 2px 2px rgba(77, 77, 77, 1);
+}
+
+.training-session-selector-wrapper:hover {
+    background-color: rgba(242, 242, 242, 0.8);
+}
+
+.training-session-selector-wrapper:first-of-type {
+    margin-top: 1rem;
+}
+
+.margin-top {
+    margin-top: 2rem;
+}
+@media screen and(max-width: 950px) {
+    .file-upload-wrapper {
+        width: 75%;
+    }
+}
+
+@media screen and(max-width: 640px) {
+    .date-picker-submit {
+        position: relative;
+        width: 75%;
+        margin-top: 1rem;
+    }
+
+    .training-session-selector-wrapper {
+        width: 100%;
+    }
+
+    .file-upload-wrapper {
+        width: 100%;
+    }
+
+    .file-upload-wrapper input {
+        width: 90%;
+    }
+}
+
+@media screen and(max-width: 780px) {
+    .desktop-dp  {
+        display: none;
+    }
+    .mobile-dp {
+        display: block;
+    }
+}

@@ -1,0 +1,39 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+{% import "nunjucks/macros/navigation.njk" as navigation %}
+
+{% block page_title %}Parking take confirm{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Find parking', '/parking-take', 'link-back') }}
+    {% if taken %}
+    {{ messages.successMessage('Parking spot taken', 'Your have taken the available parking space.', 'If it turns out you don\'t need it, please remember to come back and give it up again.', 'Return to menu', '/') }}
+    {% else %}
+    {{ typography.mainHeading('Confirm') }}
+    {{ typography.paragraph('Check the details below then enter your details to take the space.', 'lede additional-margin-heading')}}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if not taken %}
+    <div class="column-two-thirds">
+        <div class="panel panel-border-wide text grey-panel">
+            {{ typography.paragraph('Space: ' + parking.space, 'strong') }}
+            {{ typography.paragraph('Location: ' + parking.location, 'strong') }}
+            {{ typography.paragraph('Date: ' + parking.date | asReadableDate, 'strong') }}
+        </div>
+        <form action="/parking-take/{{ parking._id }}" method="post">
+            {{ forms.textInputSmall('name', 'Your name', '', errors.name, true) }}
+            {{ forms.textInputSmall('email', 'Your email', '', errors.email, true) }}
+            {{ forms.hiddenInput('id', parking._id) }}
+            {{ forms.hiddenInput('_csrf', _csrf) }}
+            {{ forms.submitInput('Confirm') }}
+            {{ typography.link('Cancel', '/parking-take', 'button secondary-button') }}
+        </form>
+    </div>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,59 @@
+.calendar {
+  margin-top: .6em;
+  position: relative;
+}
+
+.time {
+  border-top: 1px solid $border-colour;
+  color: $secondary-text-colour;
+  font-size: 16px;
+  // height: 3.3em;
+  height: 1.75em;
+  line-height: .1;
+  margin-left: 3em;
+  text-indent: -3em;
+}
+
+.provisional-date {
+    background: lightblue;
+    background: linear-gradient(to right, $white 13.5%, $white 13.5%, lightblue 13.5%);
+}
+
+.half-hour {
+    border-top: 0;
+}
+
+.booking {
+  @include box-sizing(border-box);
+
+  background: $govuk-blue;
+  color: $white;
+  font-size: 16px;
+  left: 20%;
+  padding: 4px 5px;
+  position: absolute;
+  width: 80%;
+  overflow: hidden;
+
+  &:nth-child(4n) {
+    background-color: $purple;
+  }
+}
+
+.now {
+  border-top: 2px solid $black;
+  height: 1.3em;
+  left: 10%;
+  margin: 0;
+  position: absolute;
+  width: 90%;
+}
+
+.now-time {
+  background: $black;
+  color: $white;
+  float: left;
+  font-size: 12px;
+  margin-top: -.8em;
+  padding: 2px 3px 0;
+}

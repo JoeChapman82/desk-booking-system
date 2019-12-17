@@ -1,0 +1,13 @@
+<div class="column-third">
+    <form class="" action="/parking" method="post">
+        {{ typography.paragraph(today.formattedDate, 'lede additional-margin-heading') }}
+        {# {{ forms.textInput('reason', 'Reason for booking', '', errors.reason, true) }} #}
+        {{ forms.textInput('name', 'Full name', '', errors.name, true) }}
+        {{ forms.textInput('email', 'Email address', '', errors.email, true) }}
+        {{ forms.hiddenInput('date', today.dateDay) }}
+        {{ forms.hiddenInput('date', today.dateMonth) }}
+        {{ forms.hiddenInput('date', today.dateYear) }}
+        {{ forms.hiddenInput('_csrf', _csrf) }}
+        {{ forms.submitInput('submit') }}
+    </form>
+</div>

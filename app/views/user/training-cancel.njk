@@ -1,0 +1,39 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+{% block page_title %}Cancel{% endblock %}
+
+{% block pre_content %}
+    {{ typography.mainHeading ('Cancel training session') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-two-thirds">
+        {% if cancelled %}
+            <a href="/training-session" class="link-back">Return to select page</a>
+            {{ messages.successMessage('Training Cancelled', 'You have successfully cancelled your training session') }}
+        {% else %}
+            {{ typography.paragraph('Please confirm cancellation of you training session', 'lede')}}
+            <table>
+                <thead>
+                    <th>Name One</th>
+                    <th>Date</th>
+                </thead>
+                <tbody>
+                    <td>{{ trainingSession.nameOne }}</td>
+                    <td>{{ trainingSession.date | asReadableDate }}</td>
+                </tbody>
+            </table>
+            <form class="additional-margin-top" action="/training-cancel/{{ trainingSession._id }}" method="post">
+                {{ forms.hiddenInput('id', trainingSession._id)}}
+                {{ forms.hiddenInput('_csrf', _csrf) }}
+                {{ forms.submitInput('Cancel Session')}}
+            </form>
+        {% endif %}
+    </div>
+
+{% endblock %}

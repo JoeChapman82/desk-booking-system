@@ -1,0 +1,21 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+
+{% block page_title %}Manage users{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Back home', '/super/home', 'link-back') }}
+    {{ typography.mainHeading ('Manage users') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-two-thirds">
+        {{ typography.paragraph('This is a list of all users registered withing the room booking system', 'lede') }}
+        {{ tables.userManagement(users) }}
+    </div>
+
+{% endblock %}

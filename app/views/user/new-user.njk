@@ -1,0 +1,31 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Login{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Choose a room', '/choose', 'link-back') }}
+    {% if userCreated %}
+        {{ messages.successMessage('You\'ve created your account', 'You can now login', false, 'Login', '/login') }}
+    {% endif %}
+    {{ typography.mainHeading ('Create account') }}
+    {{ typography.paragraph('Check your email is correct and choose a password that you will remember. If your email is not correct, you will need a new invite.', 'lede additional-margin-heading')}}
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="column-two-thirds">
+        <form class="" action="/new-user?token={{ tokenRaw }}" method="post" autocomplete="off">
+            {{ forms.textInputSmall('email', 'Email address', userToken.sub.email, errors.email, true, false, true )}}
+            {{ forms.passwordInput('password', 'Choose a password', '', errors.password, true )}}
+            {{ forms.passwordInput('confirmPassword', 'Confirm your password', '', errors.confirmPassword, true )}}
+            {{ forms.hiddenInput('_csrf', _csrf) }}
+            {{ forms.submitInput('Create')}}
+        </form>
+    </div>
+
+{% endblock %}

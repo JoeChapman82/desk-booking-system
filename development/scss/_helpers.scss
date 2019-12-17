@@ -1,0 +1,39 @@
+.clearfix {
+    display: block;
+    clear: both;
+}
+
+.right {
+    float: right;
+}
+
+.gutter-padding-right {
+    padding-right: $gutter;
+}
+
+.additional-margin-top {
+    margin-top: 2rem;
+}
+
+.half-width {
+    width: 50%;
+}
+
+.centered {
+    margin: 0 auto;
+}
+
+.block {
+    display: block;
+}
+
+.small-padding {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
+@media screen and(max-width: 640px) {
+    .half-width {
+        width: 100%;
+    }
+}

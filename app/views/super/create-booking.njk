@@ -1,0 +1,35 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Create booking{% endblock %}
+
+{% block pre_content %}
+{{ typography.link ('Back home', '/super/home', 'link-back') }}
+{% if booked %}
+    {{ messages.bookingSuccess('/super/create-booking', bookedRoom, _csrf) }}
+{% elif unbooked %}
+    {{ messages.successMessage('Booking cancelled', 'Your booking has been removed') }}
+{% endif %}
+    {{ typography.mainHeading ('Create booking') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-two-thirds">
+        {{ typography.paragraph('Simple form for quick creations of bookings.', 'lede additional-margin-heading') }}
+        <form class="" action="/super/create-booking" method="post">
+            {{ forms.textInputSmall('roomName', 'Room name', '', errors.roomName, true)}}
+            {{ forms.textInputSmall('startDate', 'Start date and time', '', errors.startDate, true, 'YYYY/MM/DD HH:MM:SS')}}
+            {{ forms.textInputSmall('endDate', 'End date and time', '', errors.startDate, true, 'YYYY/MM/DD HH:MM:SS')}}
+            {{ forms.textInputSmall('name', 'Booking name', '', errors.name, true)}}
+            {{ forms.textInputSmall('description', 'Booking description', '', errors.description, true)}}
+            {{ forms.hiddenInput('_csrf', _csrf) }}
+            {{ forms.submitInput('Submit') }}
+
+        </form>
+    </div>
+
+{% endblock %}

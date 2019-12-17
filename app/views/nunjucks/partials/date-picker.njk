@@ -1,0 +1,34 @@
+<form class="" action="/change-book-date/{{ room._id }}" method="post">
+    <div class="form-group {% if errors.date %}form-group-error{% endif %} date-picker">
+        <fieldset>
+            <legend>
+                <span class="form-label-bold">
+                    Date
+                </span>
+                {% if errors.dateDay.msg %}
+                <span class="error-message">{{ errors.dateDay.msg }}</span>
+                {% elif errors.dateMonth.msg %}
+                <span class="error-message">{{ errors.dateMonth.msg }}</span>
+                {% elif errors.dateYear.msg %}
+                <span class="error-message">{{ errors.dateYear.msg }}</span>
+                {% endif %}
+            </legend>
+            <div class="form-date">
+                <div class="form-group form-group-day">
+                    <label class="form-label" for="dateDay">Day</label>
+                    <input value="{{ today.dateDay }}" class="form-control date-picker-input {% if errors.dateDay %}form-control-error{% endif %}" id="dateDay" name="dateDay" type="number" data-original="{{ today.dateDay }}">
+                </div>
+                <div class="form-group form-group-month">
+                    <label class="form-label" for="dateMonth">Month</label>
+                    <input value="{{ today.dateMonth }}" class="form-control date-picker-input {% if errors.dateMonth %}form-control-error{% endif %}" id="dateMonth" name="dateMonth" type="number" data-original="{{ today.dateMonth }}">
+                </div>
+                <div class="form-group form-group-year">
+                    <label class="form-label" for="dateYear">Year</label>
+                    <input value="{{ today.dateYear }}" class="form-control date-picker-input {% if errors.dateYear %}form-control-error{% endif %}" id="dateYear" name="dateYear" type="number" data-original="{{ today.dateYeay }}">
+                </div>
+            </div>
+            {{ forms.hiddenInput('_csrf', _csrf) }}
+            <input id="changeDate" type="submit" class="button date-picker-submit" name="submit" value="Change date">
+        </fieldset>
+    </div>
+</form>

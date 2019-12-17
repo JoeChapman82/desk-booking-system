@@ -1,0 +1,21 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}No results{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Back home', '/admin/home', 'link-back') }}
+    {{ typography.mainHeading ('No results') }}
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="column-two-thirds">
+        {{ typography.paragraph('No results with found for the query provided.', 'lede additional-margin-heading') }}
+    </div>
+
+{% endblock %}

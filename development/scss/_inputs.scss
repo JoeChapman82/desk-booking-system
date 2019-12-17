@@ -1,0 +1,55 @@
+.header-input {
+    display: inline-block;
+    background-color: $black;
+    border: 0;
+    color: $white;
+    font-size: 120%;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.header-input:hover {
+    text-decoration: underline;
+}
+
+.search-box-input {
+    padding-right: 15%;
+}
+
+.reduced-margin-form-group {
+    margin-right: 13px !important;
+}
+
+.dp-fieldset {
+    position: relative;
+}
+
+.dp-submit {
+    position: absolute;
+    top: 44%;
+    font-size: 18px;
+}
+
+.dp-form-submit {
+    position: absolute;
+    bottom: 2px;
+    font-size: 18px;
+}
+
+.dp-submit:active {
+    position: absolute;
+    margin: 0;
+    top: 44%;
+}
+
+.mobile-dp .dp-submit {
+    position: relative;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+@media screen and(max-width: 640px) {
+  .dp-form-submit {
+      width: 20%;
+  }
+}

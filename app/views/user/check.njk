@@ -1,0 +1,45 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+{% import "nunjucks/macros/navigation.njk" as navigation %}
+
+{% block page_title %}Find available rooms{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Main menu', '/', 'link-back') }}
+    {{ typography.mainHeading('Find available rooms')}}
+    {{ typography.paragraph('Enter the time you wish to book and a list of available rooms will be presented', 'lede')}}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-half additional-margin-top">
+        <form class="" action="/check" method="post">
+            {% include "nunjucks/partials/time-select.njk" %}
+            {{ forms.dp(today, errors) }}
+            {{ forms.hiddenInput('_csrf', _csrf) }}
+            {{ forms.submitInput('Find available rooms')}}
+        </form>
+    </div>
+
+    <div class="column-half additional-margin-top">
+        {% if availableRooms %}
+            <h2 class="heading-small">Rooms found</h2>
+            {% if availableRooms.length === 0 %}
+                <p>Sorry, no free rooms were found</p>
+            {% else %}
+            {% for room in availableRooms %}
+                <a class="available-room-link" href="/book/{{ room._id }}?dateDay={{ dateDay }}&dateMonth={{ dateMonth }}&dateYear={{ dateYear }}&from={{ from }}&until={{ until }}">Room: {{ room.name }} - Seating: {{ room.sitting }}</a>
+            {% endfor %}
+            {% endif %}
+        {% endif %}
+
+    </div>
+
+
+
+
+{% endblock %}

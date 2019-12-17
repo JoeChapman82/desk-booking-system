@@ -1,0 +1,19 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/navigation.njk" as navigation %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+
+{% block page_title %}Overview{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Main menu', '/', 'link-back') }}
+{% endblock %}
+
+{% block content %}
+    <div class="column-full">
+        {{ forms.mobileDp(today, '/overview', _csrf) }}
+        {{ navigation.previousNextDates('/overview', previousDay, nextDay, _csrf, true, today, '/overview') }}
+        {{ tables.roomOverview(bookings, today) }}
+    </div>
+{% endblock %}

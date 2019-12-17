@@ -1,0 +1,24 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Create Desk{% endblock %}
+
+{% block pre_content %}
+{{ typography.link ('Back home', '/admin/home', 'link-back') }}
+{% if roomCreated %}
+    {{ messages.successMessage('New desk created', 'The desk has been created.', 'If you need to create more desks, simply complete the form again.') }}
+{% endif %}
+    {{ typography.mainHeading ('Create new desk') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-two-thirds">
+        {{ typography.paragraph('Simple form for quick creations of deskss.', 'lede additional-margin-heading') }}
+        {{ forms.roomForm('/admin/create-room', _csrf, errors) }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Home{% endblock %}
+
+{% block pre_content %}
+    {{ typography.mainHeading ('Administrator dashboard') }}
+{% endblock %}
+
+{% block content %}
+    {{ forms.searchBox('searchByDescription', 'Search bookings by name or description', _csrf, '', errors.searchByDescription, 'for example David or Sprint 3', 'Search', '/admin/search-by-description')}}
+    {{ forms.searchBox('searchByRoomName', 'Search bookings by desk name', _csrf, '', errors.searchByRoomName, 'for example 203 or 216', 'Search', '/admin/search-by-room')}}
+    <div class="column-full">
+        <div class="admin-home-wrapper">
+            <div class="admin-home-options-wrapper">
+            <h2 class="heading-small no-margin-heading">Other options</h2>
+            <div class="column-third gutter-padding-right">
+                <a class="admin-home-option create-option" href="/admin/create-room">Create desk</a>
+            </div>
+            <div class="column-third gutter-padding-right">
+                <a class="admin-home-option edit-option" href="/admin/edit-room">Edit desk</a>
+            </div>
+            <div class="column-third gutter-padding-right">
+                <a class="admin-home-option new-user-option" href="/admin/invite-user">Add user</a>
+            </div>
+            <div class="clearfix"></div>
+            </div>
+
+        </br>
+
+            <div class="admin-home-links-wrapper centred-text">
+                <h2 class="heading-small no-margin-heading">View user pages</h2>
+                <a class="admin-user-view-link" href="/choose">Choose a desk</a>
+                <a class="admin-user-view-link" href="/overview">Overview</a>
+                <a class="admin-user-view-link" href="/check">Check available</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

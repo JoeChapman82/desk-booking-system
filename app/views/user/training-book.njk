@@ -1,0 +1,40 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Book Training{% endblock %}
+
+{% block pre_content %}
+    <a href="/training-session" class="link-back">Return to select page</a>
+
+    {% if booked %}
+        {{ messages.successMessage('Training Booked', 'You have booked yourself on the training session', 'An email has been sent to the email address you provided. If you need to cancel this session, please use the link in the email.') }}
+    {% else %}
+
+    {{ typography.heading ('Book a training session', '1', 'heading-xlarge no-either-margin-heading' ) }}
+
+    {% if availableSpots > 0 %}
+    {{ typography.paragraph('Enter your details to book the session.', 'lede')}}
+
+    {{ typography.paragraph('There are ' + availableSpots +' remaining spots for this date', 'margin-top')}}
+    <form class="margin-top" action="/training-session/{{ sessionDate }}" method="post">
+        {{ forms.textInputSmall('nameOne', 'First participant', '', errors.nameOne, true )}}
+        {{ forms.textInputSmall('email', 'Your email address', '', errors.email, true )}}
+        {{ forms.textInputSmall('date', 'Training date', sessionDate, errors.date, true, '', true )}}
+        {{ forms.hiddenInput('_csrf', _csrf)}}
+        {{ forms.submitInput('Submit')}}
+
+    </form>
+    {% else %}
+    {{ typography.paragraph('There are no sessions availalbe for this date', 'lede')}}
+        <a href="/training-session">Return to select page</a>
+    {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Create Room{% endblock %}
+
+{% block pre_content %}
+{{ typography.link ('Back home', '/super/home', 'link-back') }}
+{% if roomCreated %}
+    {{ messages.successMessage('New room created', 'The room has been created.', 'If you need to create more rooms, simply complete the form again.') }}
+{% endif %}
+    {{ typography.mainHeading ('Create new room') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-two-thirds">
+        {{ typography.paragraph('Simple form for quick creations of rooms.', 'lede additional-margin-heading') }}
+        {{ forms.roomForm('/super/create-room', _csrf, errors) }}
+    </div>
+
+{% endblock %}

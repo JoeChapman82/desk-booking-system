@@ -1,0 +1,16 @@
+<div class="column-third">
+    <form class="" action="/book/{{ room._id }}" method="post">
+        {{ typography.heading('Book ' + room.name, '2', 'heading-medium no-margin-heading') }}
+        {{ typography.paragraph(today.formattedDate, 'lede additional-margin-heading') }}
+        {{ forms.textInput('reason', 'Reason for booking', '', errors.reason, true) }}
+        {{ forms.textInput('name', 'Full name', '', errors.name, true) }}
+        {{ forms.textInput('email', 'Email address', '', errors.email, true) }}
+        {% include "nunjucks/partials/time-select.njk" %}
+        {{ forms.hiddenInput('room', room._id) }}
+        {{ forms.hiddenInput('date', today.dateDay) }}
+        {{ forms.hiddenInput('date', today.dateMonth) }}
+        {{ forms.hiddenInput('date', today.dateYear) }}
+        {{ forms.hiddenInput('_csrf', _csrf) }}
+        {{ forms.submitInput('submit') }}
+    </form>
+</div>

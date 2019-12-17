@@ -1,0 +1,29 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Home page{% endblock %}
+
+{% block pre_content %}
+    {{ typography.mainHeading ('Super User menu') }}
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="column-two-thirds">
+        {{ typography.paragraph(siteLocation + ' Booking system management functions, for all your management needs.', 'lede') }}
+        <div class="super-home-wrapper">
+            <a class="homepage-link" href="/super/seed">Seed existing bookings</a>
+            <a class="homepage-link" href="/super/invite-user">Invite user</a>
+            <a class="homepage-link" href="/super/create-room">Create Room</a>
+            <a class="homepage-link" href="/super/edit-room">Edit Room</a>
+            <a class="homepage-link" href="/super/create-booking">Create Booking</a>
+            <a class="homepage-link" href="/super/clear-old-bookings">Clear old bookings</a>
+            <a class="homepage-link" href="/super/manage-users">Manage users</a>
+        </div>
+    </div>
+
+{% endblock %}

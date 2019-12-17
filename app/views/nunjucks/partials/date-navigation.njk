@@ -1,0 +1,13 @@
+<nav role="navigation">
+    <ul class="previous-next-navigation group">
+        <li class="previous">
+            <a href="/book/{{ room._id }}?dateDay={{ previousDay.dateDay }}&dateMonth={{ previousDay.dateMonth }}&dateYear={{ previousDay.dateYear }}">
+                <svg class="date-nav-svg-left" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3891C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                {{ previousDay.formattedDate }}</a>
+        </li>
+        <li class="next">
+            <a href="/book/{{ room._id }}?dateDay={{ nextDay.dateDay }}&dateMonth={{ nextDay.dateMonth }}&dateYear={{ nextDay.dateYear }}">{{ nextDay.formattedDate }}
+            <svg class="date-nav-svg-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3891C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+        </li>
+    </ul>
+</nav>

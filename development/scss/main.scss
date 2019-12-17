@@ -1,0 +1,28 @@
+@import 'govuk-elements';
+
+@import 'typography';
+@import 'tables';
+@import 'links';
+@import 'helpers';
+@import 'tables';
+@import 'wrappers';
+@import 'navigation';
+@import 'calendar';
+@import 'messages';
+@import 'buttons';
+@import 'inputs';
+
+.time-control {
+    margin-right: .5em;
+    width: 4em;
+}
+
+.room-details-section {
+    margin-bottom: 3rem;
+}
+
+label,
+input[type='text'],
+input[type='password'] {
+    display: block;
+}

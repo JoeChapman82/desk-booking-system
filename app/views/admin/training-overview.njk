@@ -1,0 +1,52 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Training Overview{% endblock %}
+
+{% block pre_content %}
+    <a href="/admin/home" class="link-back">Return to admin home</a>
+
+    {% if cancelled %}
+        {{ messages.successMessage('Training cancelled', 'You have successfully cancelled this training session') }}
+    {% endif %}
+
+    {% for key, value in trainingSessions %}
+    <h2 class="strong heading-large">{{ key | asReadableDate }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name One</th>
+                <th>Booked</th>
+                <th>Cancel</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in value %}
+                <tr>
+                    <td>{% if item.nameOne === null or not item.nameOne %}-{% else %}{{ item.nameOne }}{% endif %}</td>
+                    <td>{% if item.nameOne === null or not item.nameOne %} {% else %}X{% endif %}</td>
+                    <td>{% if item.nameOne === null or not item.nameOne %} {% else %}
+                        <form class="" action="/admin/training-cancel" method="post">
+                            {{ forms.hiddenInput('_id', item._id)}}
+                            {{ forms.hiddenInput('_csrf', _csrf)}}
+                            {{ forms.submitInput('Cancel') }}
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br />
+    {% endfor %}
+
+
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+
+
+{% block page_title %}Login{% endblock %}
+
+{% block pre_content %}
+    {{ typography.mainHeading ('Login') }}
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="column-two-thirds">
+        <form class="form" action="/login" method="post">
+            {{ forms.textInputSmall('email', 'Email address', '', errors.email, true )}}
+            {{ forms.passwordInput('password', 'Password', '', errors.password, true )}}
+            {{ forms.hiddenInput('_csrf', _csrf) }}
+            {{ forms.submitInput('Login', 'button')}}
+        </form>
+    </div>
+
+{% endblock %}

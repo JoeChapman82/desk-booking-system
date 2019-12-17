@@ -1,0 +1,19 @@
+{% macro mainHeading(content) %}
+    <h1 class="heading heading-xlarge main-heading">{{ content }}</h1>
+{% endmacro %}
+
+{% macro spannedHeading(content, span) %}
+    <h1 class="heading heading-xlarge main-heading"><span class="heading-secondary">{{ span }}</span>{{ content }}</h1>
+{% endmacro %}
+
+{% macro heading(content, type, class, id) %}
+    <h{{ type }} {% if if %}id="{{ id }}"{% endif %} {% if class %}class="{{class}}"{% endif %}>{{ content }}</h{{ type}}>
+{% endmacro %}
+
+{% macro paragraph(content, class, id) %}
+    <p {% if if %}id="{{ id }}"{% endif %} {% if class %}class="{{class}}"{% endif %}>{{ content }}</p>
+{% endmacro %}
+
+{% macro link(content, href, class) %}
+    <a class="{{class}}" href="{{ href }}">{{ content }}</a>
+{% endmacro %}

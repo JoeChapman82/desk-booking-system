@@ -1,0 +1,29 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Training sessions{% endblock %}
+
+{% block pre_content %}
+{% endblock %}
+
+{% block content %}
+
+<a href="/" class="link-back">Return to menu</a>
+
+{{ typography.heading ('Find a training session', '1', 'heading-xlarge no-either-margin-heading' ) }}
+{{ typography.paragraph('Choose a day you would like to attend the training session', 'lede')}}
+{% for session in availableSessions %}
+    <div class="training-session-selector-wrapper">
+        <a class="training-session-link" href="/training-session/{{ session.date | asDashedDateString }}">
+        {{ typography.heading (session.date | asReadableDate, '3', 'heading-small no-either-margin-heading black-text' ) }}
+        <p class="small-padding black-text no-either-margin-heading">Available spots: <span class="{% if session.amount === 0 %}red-text{% else %}blue-text{% endif %} strong">{{ session.amount }}</span></p>
+    </a>
+    </div>
+{% endfor %}
+
+
+{% endblock %}

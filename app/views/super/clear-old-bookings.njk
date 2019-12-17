@@ -1,0 +1,27 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Clear bookings{% endblock %}
+
+{% block pre_content %}
+{{ typography.link ('Back home', '/super/home', 'link-back') }}
+    {% if cleared %}
+    {{ messages.successMessage('Bookings cleared', 'All historic bookings have been cleared') }}
+    {% endif %}
+    {{ typography.mainHeading ('Clear bookings') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-two-thirds">
+        {{ typography.paragraph('Clear all bookings from past date', 'lede additional-margin-heading') }}
+        <form class="" action="/super/clear-old-bookings" method="post">
+            {{ forms.hiddenInput('_csrf', _csrf) }}
+            {{ forms.submitInput('Clear') }}
+        </form>
+    </div>
+
+{% endblock %}

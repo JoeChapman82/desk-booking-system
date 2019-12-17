@@ -1,0 +1,37 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+{% import "nunjucks/macros/navigation.njk" as navigation %}
+
+{% block page_title %}Book a room{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Main menu', '/', 'link-back') }}
+
+    {% if booked %}
+        {{ messages.bookingSuccess('/book-cancel/' + room._id, bookedRoom, _csrf) }}
+    {% elif unbooked %}
+        {{ messages.successMessage('Booking cancelled', 'Your booking has been removed') }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-full">
+         {{ typography.spannedHeading(room.name, siteLocation) }}
+         {% include 'nunjucks/partials/room-details.njk' %}
+    </div>
+
+    <div class="column-two-thirds">
+        {% include 'nunjucks/partials/date-picker.njk' %}
+        {{ navigation.previousNextDates('/book/' + room._id, previousDay, nextDay, _csrf) }}
+        {% include "nunjucks/partials/calendar.njk" %}
+    </div>
+
+    {% if not isBeforeToday %}
+        {% include "nunjucks/partials/booking-form.njk" %}
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,113 @@
+.results-table {
+  table-layout: fixed;
+}
+
+.results-table td {
+    padding-right: 3rem;
+}
+
+.rooms-overview-table tr td:first-of-type {
+    background-color: $grey-4;
+    border-left: 1px solid mix($grey-1, $grey-2, 50%);
+    text-align: center;
+    font-size: 120%;
+    font-weight: normal;
+}
+
+.rooms-overview-table a {
+    text-decoration: none;
+
+    &:visited {
+        color: $link-colour;
+    }
+}
+
+.rooms-overview-table {
+    table-layout: fixed;
+    width: 100%;
+    font-size: 80%;
+}
+
+.rooms-overview-table * {
+    padding: 0;
+    border: 0;
+}
+
+.rooms-overview-table tr th:nth-child(1) {
+    width: 18%;
+  }
+
+ .rooms-overview-table tr th:nth-child(1) td {
+     padding: 1rem;
+ }
+
+.rooms-overview-table tr {
+    border-bottom: 1px solid mix($grey-1, $grey-2, 25%);
+}
+
+.rooms-overview-table td {
+    position: relative;
+    height: 45px;
+    border-right: 1px solid mix($grey-1, $grey-2, 25%);
+    background-color: #AED8E5;
+}
+
+.overview-row:hover {
+    cursor: pointer;
+}
+
+.o-b {
+    position: absolute;
+    background-color: #2F3889;
+    width: 25%;
+    height: inherit;
+    display: inline-block;
+    margin-top: -22.5px;
+}
+
+.o-1 {
+    left: 0%;
+}
+
+.o-2 {
+    left: 25%;
+}
+
+.o-3 {
+    left: 50%;
+}
+
+.o-4 {
+    left: 75%;
+}
+
+.parking-row:hover {
+    background-color: $grey-3;
+    cursor: pointer;
+}
+
+.parking-row-taken {
+    background-color: rgba(255, 0, 0, .2);
+}
+
+@media screen and(max-width: 900px) {
+    .results-table {
+        table-layout: auto;
+    }
+
+    .results-table td {
+        padding-right: 1rem;
+    }
+}
+
+@media screen and(max-width: 680px) {
+    .rooms-overview-table * {
+        font-size: 90%;
+    }
+}
+
+@media screen and(max-width: 450px) {
+    .rooms-overview-table * {
+        font-size: 85%;
+    }
+}

@@ -1,0 +1,28 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Seed database{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Back home', '/super/home', 'link-back') }}
+    {{ typography.mainHeading ('Seed database') }}
+    {{ typography.paragraph('Upload a csv file containing existing bookings.', 'lede additional-margin-heading') }}
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="column-two-thirds">
+        <div class="file-upload-wrapper">
+            <form id="uploadForm" enctype="multipart/form-data" class="form" action="/super/seed?_csrf={{ _csrf }}" method="post">
+                {{ forms.fileInput('uploadCalendar', 'Choose a file to upload', '', errors.uploadFile) }}
+                {{ forms.hiddenInput('_csrf', _csrf) }}
+                {{ forms.submitInput('Upload') }}
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

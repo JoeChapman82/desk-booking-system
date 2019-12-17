@@ -1,0 +1,38 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+{% import "nunjucks/macros/navigation.njk" as navigation %}
+
+{% block page_title %}Cancel Parking{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Main menu', '/', 'link-back') }}
+    {% if cancelled %}
+    {{ messages.successMessage('You\'ve cancelled the reservation', 'Thank you for taking the time to free up a space for another visitor.', 'Use the button below to return to the main menu', 'Return to menu', '/') }}
+    {% elif noParking %}
+    {{ messages.errorMessage('No reservation found', 'The space you\'re trying to cancel does not exist', 'Use the link below to return to the main menu', 'Main menu', '/') }}
+    {% else %}
+    {{ typography.mainHeading('Cancel') }}
+    {{ typography.paragraph('Check the details below and click the button to cancel your reservation', 'lede additional-margin-heading')}}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if not cancelled and not noParking %}
+    <div class="column-two-thirds">
+        <div class="panel panel-border-wide text turquoise-panel">
+            {{ typography.paragraph('Space: ' + parking.space, 'strong') }}
+            {{ typography.paragraph('Date: ' + parking.date | asReadableDate, 'strong') }}
+            {{ typography.paragraph('Name: ' + parking.name, 'strong') }}
+        </div>
+        <form action="/parking-cancel/{{ parking._id }}" method="post">
+            {{ forms.hiddenInput('_csrf', _csrf) }}
+            {{ forms.submitInput('Cancel') }}
+            {{ forms.hiddenInput('id', parking._id) }}
+        </form>
+    </div>
+    {% endif %}
+
+{% endblock %}

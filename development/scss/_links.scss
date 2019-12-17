@@ -1,0 +1,163 @@
+.main-logo,
+.main-logo:visited,
+.main-logo:active  {
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 1;
+    text-decoration: none;
+    text-rendering: optimizeLegibility;
+    border-bottom: 1px solid transparent;
+}
+
+a.homepage-link {
+    color: $black;
+}
+
+.digital-link,
+.digital-link:active,
+.digital-link:visited,
+.digital-link:link {
+    color: $white;
+}
+
+.digital-link:hover {
+    text-decoration: underline;
+}
+
+.homepage-link {
+    padding: .75rem 2rem;
+    background-color: $grey-3;
+    border: 1px solid $grey-1;
+    border-radius: 5px;
+    box-shadow: 2px 2px $black;
+    display: block;
+    margin-bottom: 1.25rem;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: $black;
+}
+
+.homepage-link:hover {
+    background-color: mix($govuk-blue, $grey-3, 80%);
+}
+
+.admin-home-option,
+.user-home-option {
+    width: 100%;
+    border: 2px solid $grey-1;
+    height: 0;
+    padding-top: 5%;
+    padding-bottom: 75%;
+    margin: .5rem;
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 120%;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 2px 2px $black;
+    background-color: mix($grey-3, $grey-4, 80%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 35%;
+}
+
+a.admin-home-option:hover,
+a.user-home-option:hover {
+    background-color: mix($grey-2, $grey-4, 80%);
+}
+
+.admin-home-option:focus,
+.user-home-option:focus {
+    background-color: mix($grey-3, $grey-4, 80%);
+    border: 0;
+}
+
+a.admin-home-option,
+a.user-home-option {
+    color: $black;
+}
+
+.create-option {
+    background-image: url('/images/box.svg');
+}
+
+.edit-option {
+    background-image: url('/images/edit.svg');
+}
+
+.new-user-option {
+    background-image: url('/images/user.svg');
+}
+
+.choose-option {
+    background-image: url('/images/shopping.svg');
+}
+
+.overview-option {
+    background-image: url('/images/calendar.svg');
+}
+
+.check-option {
+    background-image: url('/images/book.svg');
+}
+
+.parking-give-option {
+    background-image: url('/images/truck.svg');
+    padding-bottom: 50%;
+    background-size: 30%;
+    background-position: center 70%;
+}
+
+.parking-take-option {
+    background-image: url('/images/loader.svg');
+    padding-bottom: 50%;
+    background-size: 30%;
+    background-position: center 70%;
+}
+
+.parking-visitor-option {
+    background-image: url('/images/user.svg');
+    padding-bottom: 50%;
+    background-size: 30%;
+    background-position: center 70%;
+}
+
+.admin-user-view-link {
+    margin: 0 .5rem;
+}
+
+.admin-user-view-link:visited {
+    color: $link-colour;
+}
+
+.available-room-link {
+    display: block;
+    margin-bottom: .5rem;
+}
+
+.available-room-link:visited,
+.available-parking-link:visited {
+    color: $link-colour;
+}
+
+@media screen and(max-width: 750px) {
+    .admin-home-option {
+        font-size: 100%;
+    }
+}
+
+@media screen and(max-width: 640px) {
+    .homepage-link {
+        width: 100%;
+    }
+
+    .admin-home-option {
+        padding-bottom: 20%;
+        padding-top: 2%;
+        background-size: 15%;
+        background-position: 50% 90%;
+    }
+}

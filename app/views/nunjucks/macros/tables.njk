@@ -1,0 +1,184 @@
+{% macro tableHead(values) %}
+<thead>
+    <tr>
+        {% for value in values %}
+            <th>{{ value }}</th>
+        {% endfor %}
+    </tr>
+</thead>
+{% endmacro %}
+
+{% macro chooseRoom(rooms) %}
+    <table>
+      <thead>
+        <tr>
+          <th>Desk number</th>
+          <th>Floor</th>
+          <th>Desk function 1</th>
+          <th>Desk function 2</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for room in rooms %}
+              <tr>
+                  <td><a href="/book/{{ room._id }}">{{ room.name }}</a></td>
+                  <td>{{ room.equipment | join(' ') }}</td>
+                  <td>{{ room.sitting }}</td>
+                  <td>{{ room.standing }}</td>
+              </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+{% endmacro %}
+
+{% macro userManagement(users) %}
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}
+
+{% macro searchResults(results, href) %}
+    <table class="results-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Room</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td><a href="{{ href }}/{{ result._id }}">{{ result.name }}</a></td>
+                <td>{{ result.description }}</td>
+                <td>{{ result.room.name }}</td>
+                <td>{{ result.start | asReadableDate }}</td>
+                <td>{{ result.start | hoursAndMinutes }} - {{ result.end | hoursAndMinutes }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}
+
+{% macro bookingDetails(booking, room, postUrl, _csrf) %}
+{% if booking %}
+<table class="booking-details-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Room</td>
+            <td>{{ room.name }}</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>{{ booking.description }}</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>{{ booking.name }}</td>
+        </tr>
+        <tr>
+            <td>Date</td>
+            <td>{{ booking.start | asReadableDate }}</td>
+        </tr>
+        <tr>
+            <td>Time</td>
+            <td>{{ booking.start | hoursAndMinutes }} - {{ booking.end | hoursAndMinutes }}</td>
+        </tr>
+    </tbody>
+</table>
+<form class="" action="{{ postUrl }}" method="post">
+    <input type="hidden" name="bookedRoom" value="{{ booking._id }}">
+    <input type="hidden" name="_csrf" value="{{ _csrf }}">
+    <input class="button" type="submit" name="submit" value="Delete booking">
+</form>
+{% else %}
+    <p class="lede">Booking not found</p>
+    <a class="button" href="/choose">Choose a room</a>
+    {{ typography.paragraph('Booking not found', 'lede') }}
+    {{ typography.link('Choose a room', '/choose', 'button') }}
+{% endif %}
+{% endmacro %}
+
+{% macro roomOverview(bookings, today) %}
+    <table class="rooms-overview-table">
+      <thead>
+        <tr>
+          <th>Desk</th>
+          {% for hour in range(8, 19) %}
+          <th>{{ hour }}:00</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+          {% for key, value in bookings %}
+              <tr class="overview-row" data-link="overviewLink{{ loop.index }}">
+                  <td><a id="overviewLink{{ loop.index }}" href="/book/{{ value.id }}?dateDay={{ today.dateDay }}&dateMonth={{ today.dateMonth }}&dateYear={{ today.dateYear }}">{{ key }}</a></td>
+                  {% for hour in range(8, 19) %}
+                  <td>
+                      {% for quarter in value.hours[hour] %}
+                            {% if quarter === 1 %}
+                                <div class="o-b o-{{ loop.index }}">&nbsp;</div>
+                            {% endif %}
+                      {% endfor %}
+                  </td>
+                  {% endfor %}
+              </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+{% endmacro %}
+
+{% macro availableParking(parkings, href) %}
+    <table>
+        {{ tableHead(['Space', 'Location', 'Given by'] )}}
+        <tbody>
+            {% for parking in parkings %}
+            <tr class="parking-row" data-link="parking-{{ loop.index }}">
+                <td><a class="available-parking-link" id="parking-{{ loop.index }}" href="{{ href }}/{{ parking._id }}">{{ parking.space }}</a></td>
+                <td>{{ parking.location }}</td>
+                <td>{{ parking.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}
+
+{% macro availableVisitorParking(parkings, href, today) %}
+    <table>
+        {{ tableHead(['Space', 'Availability', 'Taken by'] )}}
+        <tbody>
+            {% for key, value in parkings %}
+            <tr {% if value.available %}class="parking-row"{% else %}class="parking-row-taken"{% endif %} data-link="parking-{{ loop.index }}">
+                {% if value.available %}
+                <td><a class="available-parking-link" id="parking-{{ loop.index }}" href="{{ href }}/{{ key }}?dateDay={{ today.dateDay }}&dateMonth={{ today.dateMonth }}&dateYear={{ today.dateYear }}">{{ key }}</a></td>
+                {% else %}
+                <td>{{ key }}</td>
+                {% endif %}
+                <td>{% if value.available %}Available{% else %}In use{% endif %}</td>
+                <td>{{ value.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}

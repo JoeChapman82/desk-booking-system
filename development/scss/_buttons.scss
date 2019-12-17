@@ -1,0 +1,22 @@
+.search-box-svg-button {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    right: 0;
+    width: 10%;
+    background-color: $link-colour;
+    border: 0;
+    box-sizing: border-box;
+}
+
+.secondary-button {
+    margin-left: 2rem;
+}
+
+@media screen and(max-width: 640px) {
+    .select-room-to-edit-button {
+        width: 100%;
+        margin-right: 0;
+    }
+}

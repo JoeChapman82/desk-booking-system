@@ -1,0 +1,19 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+
+
+{% block page_title %}Cancel{% endblock %}
+
+{% block pre_content %}
+    <a href="/choose" class="link-back">Choose a room</a>
+    <div class="govuk-box-highlight text">
+        {{ typography.heading ('Booking deleted', '1', 'heading-xlarge no-either-margin-heading' ) }}
+    </div>
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}

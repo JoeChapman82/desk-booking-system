@@ -1,0 +1,33 @@
+{% extends "nunjucks/templates/govuk_template.njk" %}
+{% import "nunjucks/macros/typography.njk" as typography %}
+{% import "nunjucks/macros/tables.njk" as tables %}
+{% import "nunjucks/macros/forms.njk" as forms %}
+{% import "nunjucks/macros/messages.njk" as messages %}
+{% import "nunjucks/macros/navigation.njk" as navigation %}
+
+{% block page_title %}Give parking{% endblock %}
+
+{% block pre_content %}
+    {{ typography.link ('Main menu', '/', 'link-back') }}
+    {% if giveSuccessful %}
+        {{ messages.successMessage('You\'ve provided a space', 'Thanks for freeing up your space.', false, 'Return to menu', '/') }}
+    {% endif %}
+    {{ typography.mainHeading('Give parking') }}
+    {{ typography.paragraph('Fill in the form to free up your space.', 'lede additional-margin-heading')}}
+{% endblock %}
+
+{% block content %}
+
+    <div class="column-two-thirds">
+        <form class="form" action="/parking-give" method="post">
+            {{ forms.textInputSmall('space', 'Space', '', errors.space, true, false, false, '1-8') }}
+            {{ forms.selectInput('location', 'Basement or Outside', [{label: 'Outside', value: 'Outside'}, {label: 'Basement', value: 'Basement'}], errors.location, false, true)}}
+            {{ forms.textInputSmall('name', 'Your name', '', errors.name, true) }}
+            {{ forms.textInputSmall('email', 'Your email', '', errors.email, true) }}
+            {{ forms.dp(today, errors) }}
+            {{ forms.hiddenInput('_csrf', _csrf) }}
+            {{ forms.submitInput('Submit') }}
+        </form>
+    </div>
+
+{% endblock %}
