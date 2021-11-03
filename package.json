@@ -44,7 +44,7 @@
     "request-promise": "^4.2.2",
     "require-dir": "^0.3.2",
     "serve-favicon": "^2.4.5",
-    "validator": "^9.3.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {}
 }
